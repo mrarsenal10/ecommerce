@@ -1,11 +1,20 @@
-@url_dev=http://localhost:3052/v1/api
+# @url_dev=http://localhost:3000/v1/api
+# POST {{url_dev}}/shop/signup/
+# Content-type: application/json
+# x-api-key: a00a5b73d41b29a4266c9425468a4cf7415d5333d560bd0b979c56c5fc09a6117ef90182ebc2cff8d9bbb04efc1963a19bf183c1ae1dc0aaeca1bead8e3c2515
 
-POST {{url_dev}}/shop/signup/
+# {
+#     "email": "shop02@gmail.com",
+#     "password": "123",
+#     "name": "shop02"
+# }
+
+@url_dev=http://localhost:3000/v1/api
+POST {{url_dev}}/shop/login/
 Content-type: application/json
-x-api-key: 12e49a8ce56401a683bf503802fbbea7531c352d193d6c5baf0eb184aa8f92ac8d5fddce4763166dfb1b169fb71ad7eeceb6c203e6e7ff13730356268fef1c7d
+x-api-key: a00a5b73d41b29a4266c9425468a4cf7415d5333d560bd0b979c56c5fc09a6117ef90182ebc2cff8d9bbb04efc1963a19bf183c1ae1dc0aaeca1bead8e3c2515
 
 {
-    "email": "shop16@gmail.com",
-    "password": "123",
-    "name": "shop05"
+    "email": "shop02@gmail.com",
+    "password": "123"
 }

@@ -2,8 +2,6 @@
 
 const { model, Schema } = require("mongoose");
 
-const mongoose = require("mongoose");
-
 const DOCUMENT_NAME = "Key";
 const COLLECTION_NAME = "Keys";
 
@@ -23,6 +21,10 @@ const keyTokenSchema = new Schema(
             required: true,
         },
         refreshToken: {
+            type: String,
+            required: true,
+        },
+        refreshTokenUseds: {
             type: Array,
             default: [],
         },

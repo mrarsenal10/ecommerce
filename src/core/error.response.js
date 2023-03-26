@@ -3,11 +3,13 @@
 const statusCode = {
     FORBIDDEN: 403,
     CONFLICT: 409,
+    UNAUTHORIZED: 410,
 };
 
 const statusMessage = {
     FORBIDDEN: "Forbidden",
     CONFLICT: "Conflict error",
+    UNAUTHORIZED: "Unauthorized error",
 };
 
 class ErrorResponse extends Error {
@@ -32,7 +34,17 @@ class ForbiddenERequestrror extends ErrorResponse {
     }
 }
 
+class AuthenticationError extends ErrorResponse {
+    constructor(
+        message = statusMessage.UNAUTHORIZED,
+        code = statusCode.UNAUTHORIZED
+    ) {
+        super(message, code);
+    }
+}
+
 module.exports = {
     ConflictRequestError,
     ForbiddenERequestrror,
+    AuthenticationError,
 };

@@ -5,7 +5,11 @@ const crypto = require("crypto");
 const KeyTokenService = require("./keyToken.service");
 const { createTokenPair } = require("../auth/authUtils");
 const { getInfo } = require("../utils");
-const { ConflictRequestError } = require("../core/error.response");
+const {
+    ConflictRequestError,
+    AuthenticationError,
+} = require("../core/error.response");
+const { findByEmail } = require("./shop.service");
 
 const RoleShop = {
     SHOP: "SHOP",
@@ -74,10 +78,50 @@ class AccessService {
                 tokens,
             };
         }
+    };
+
+    static login = async ({ email, password, refreshToken }) => {
+        const foundShop = await findByEmail(email);
+
+        if (!foundShop) {
+            throw new ConflictRequestError("Shop not registered");
+        }
+
+        const match = await bcrypt.compare(password, foundShop.password);
+        if (!match) {
+            throw new AuthenticationError();
+        }
+
+        const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
+            modulusLength: 4096,
+            publicKeyEncoding: {
+                type: "pkcs1",
+                format: "pem",
+            },
+            privateKeyEncoding: {
+                type: "pkcs1",
+                format: "pem",
+            },
+        });
+
+        const token = await createTokenPair(
+            { userId: foundShop._id, email },
+            publicKey,
+            privateKey
+        );
+
+        await KeyTokenService.createKeyToken({
+            userId: foundShop._id,
+            privateKey,
+            publicKey,
+            refreshToken: token.refreshToken,
+        });
 
         return {
-            code: 200,
-            metadata: null,
+            shop: getInfo({
+                object: foundShop,
+                fields: ["_id", "email", "name"],
+            }),
         };
     };
 }
