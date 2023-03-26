@@ -8,6 +8,8 @@ const dev = {
         host: process.env.DEV_DB_HOST,
         port: process.env.DEV_DB_PORT,
         name: process.env.DEV_DB_NAME,
+        username: process.env.DEV_DB_USERNAME,
+        password: process.env.DEV_DB_PASSWORD,
     }
 }
 
