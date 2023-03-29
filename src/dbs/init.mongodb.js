@@ -3,11 +3,8 @@
 const mongoose = require("mongoose")
 const { db: { host, port, name, username, password }} = require("../configs/config.mongodb")
 
-console.log(host, port, name)
-
 const connectString = `mongodb://${host}:${port}/${name}?authMechanism=DEFAULT`
 // const connectString =  'mongodb://root:rootpassword@127.0.0.1:27018/shopDev?authMechanism=DEFAULT'
-// console.log(connectString)
 
 class Database {
     constructor() {
