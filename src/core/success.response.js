@@ -19,7 +19,7 @@ class SuccessResponse {
     }) {
         this.message = !message ? statusMessage : message;
         this.status = statusCode;
-        this.metada = metadata;
+        this.metadata = metadata;
     }
 
     send(res, headers) {
