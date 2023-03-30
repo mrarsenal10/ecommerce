@@ -7,6 +7,7 @@ const sequelize = new Sequelize(name, username, password, {
     host,
     port,
     dialect: "mysql",
+    query: { raw: true },
 });
 
 class Database {

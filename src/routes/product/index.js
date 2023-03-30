@@ -2,7 +2,10 @@ const express = require("express");
 const { asyncHandler } = require("../../auth/checkAuth");
 const ProductController = require("../../controllers/product.controller");
 const validate = require("../../middleware/validate");
-const { createProductSchema } = require("../../schema/product.schema");
+const {
+    createProductSchema,
+    updateProductSchema,
+} = require("../../schema/product.schema");
 const router = express.Router();
 
 router.post(
@@ -11,4 +14,12 @@ router.post(
     asyncHandler(ProductController.create)
 );
 
-module.exports = router
+router.patch(
+    "/products/:id/:test",
+    validate(updateProductSchema),
+    asyncHandler(ProductController.update)
+);
+
+router.get("/products", asyncHandler(ProductController.getAll));
+
+module.exports = router;
