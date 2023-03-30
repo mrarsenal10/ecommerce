@@ -1,9 +1,13 @@
-'use strict'
+"use strict";
 
-const _ = require("lodash")
+const _ = require("lodash");
 
 const getInfo = ({ fields = [], object = {} }) => {
-    return _.pick(object, fields)
-}
+    return _.pick(object, fields);
+};
 
-module.exports = { getInfo }
+const getInfoArray = ({ fields = [], data = [] }) => {
+    return data.map((object) => _.pick(object, fields));
+};
+
+module.exports = { getInfo, getInfoArray };
