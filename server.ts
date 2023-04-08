@@ -1,9 +1,9 @@
-const app = require("./src/app");
+import app from "./src/app";
+import config from "./src/configs/config.mongodb";
 
 const {
     app: { port },
-} = require("./src/configs/config.mongodb");
-const { sequelize } = require("./src/dbs/init.mysql");
+} = config;
 
 const PORT = port || 3052;
 
@@ -13,7 +13,6 @@ const server = app.listen(PORT, () => {
 
 process.on("SIGINT", () => {
     server.close(() => {
-        // sequelize.close();
         console.log("Server closed");
     });
 });

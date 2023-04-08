@@ -26,7 +26,7 @@ const checkOverload = () => {
     }, _SECONDS)
 }
 
-module.exports = {
+export {
     countConnect,
     checkOverload
 }

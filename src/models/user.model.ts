@@ -1,29 +1,28 @@
 'use strict'
 
-const { string } = require('@tensorflow/tfjs-core')
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
     name: {
-        type: string,
+        type: String,
         require: true,
         unique: true,
         index: true
     },
     email: {
-        type: string,
+        type: String,
         require: true,
         unique: true,
     },
     mobile: {
-        type: string,
+        type: String,
         require: true,
         unique: true,
     },
     password: {
-        type: string,
+        type: String,
         require: true,
     }
 })
 
-module.exports = mongoose.model('User', userSchema)
+export default mongoose.model('User', userSchema)

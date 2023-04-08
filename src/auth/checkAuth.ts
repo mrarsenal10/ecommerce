@@ -1,13 +1,14 @@
 "use strict";
 
-const { findById } = require("../services/apiKey.service");
+import { NextFunction, Request, Response } from "express";
+import { findById } from "../services/apiKey.service";
 
 const HEADER = {
     API_KEY: "x-api-key",
     AUTHORIZATION: "authorization",
 };
 
-const apiKey = async (req, res, next) => {
+const apiKey = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const key = req.headers[HEADER.API_KEY]?.toString();
 
@@ -25,15 +26,14 @@ const apiKey = async (req, res, next) => {
             });
         }
 
-        req.objKey = objKey;
+        // req.objKey = objKey;
 
         return next();
     } catch (err) {}
 };
 
-const permission = (permission) => {
-    return (req, res, next) => {
-
+const permission = (permission: string) => {
+    return (req: Request, res: Response, next: NextFunction) => {
         if (!req.objKey.permissions) {
             return res.status(403).json({
                 message: "Forbidden Error",
@@ -45,17 +45,11 @@ const permission = (permission) => {
         if (!isValid) {
             return res.status(403).json({
                 message: "Forbidden Error",
-            }); 
+            });
         }
 
         return next();
-    }
-}
+    };
+};
 
-const asyncHandler = (fn) => {
-    return (req, res, next) => {
-        fn(req, res, next).catch(next);
-    }
-}
-
-module.exports = { apiKey, permission, asyncHandler };
+export { apiKey, permission };

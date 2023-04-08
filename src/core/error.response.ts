@@ -13,10 +13,23 @@ const statusMessage = {
 };
 
 class ErrorResponse extends Error {
-    constructor({ message, code, errors = null }) {
+    status: number;
+    errors: [] | null;
+
+    constructor({
+        message,
+        code,
+        errors = null,
+    }: {
+        message: string;
+        code: number;
+        errors?: [] | null;
+    }) {
         super(message);
         this.status = code;
         this.errors = errors;
+
+        Object.setPrototypeOf(this, ErrorResponse.prototype);
     }
 }
 
@@ -48,7 +61,7 @@ class BadRequestError extends ErrorResponse {
     }
 }
 
-module.exports = {
+export {
     ConflictRequestError,
     ForbiddenERequestrror,
     BadRequestError,

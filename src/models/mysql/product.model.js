@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const dbinstance = require("../dbs/init.mysql");
+const dbinstance = require("../../dbs/init.mysql");
 
 const Product = dbinstance.sequelize.define("products", {
     id: {
