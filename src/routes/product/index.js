@@ -22,4 +22,4 @@ router.patch(
 
 router.get("/products", asyncHandler(ProductController.getAll));
 
-module.exports = router;
+export default router;

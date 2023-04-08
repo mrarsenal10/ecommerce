@@ -1,5 +1,7 @@
 "use strict";
 
+import { Response } from "express";
+
 const reasonStatusCode = {
     OK: 200,
     CREATED: 201,
@@ -11,25 +13,44 @@ const reasonStatusMessage = {
 };
 
 class SuccessResponse {
+    message: string;
+    status: number;
+    metadata: {};
+
     constructor({
         message,
         statusCode = reasonStatusCode.OK,
         statusMessage = reasonStatusMessage.OK,
         metadata = {},
+    }: {
+        message: string;
+        statusCode: number;
+        statusMessage: string;
+        metadata: {};
     }) {
         this.message = !message ? statusMessage : message;
         this.status = statusCode;
         this.metadata = metadata;
     }
 
-    send(res, headers) {
+    send(res: Response) {
         return res.status(this.status).json(this);
     }
 }
 
 class OK extends SuccessResponse {
-    constructor({ message, metadata }) {
-        super({ message, metadata });
+    constructor({
+        message,
+        metadata,
+        statusCode,
+        statusMessage,
+    }: {
+        message: string;
+        metadata: {};
+        statusCode: number;
+        statusMessage: string;
+    }) {
+        super({ message, metadata, statusCode, statusMessage });
     }
 }
 
@@ -39,6 +60,11 @@ class CREATED extends SuccessResponse {
         metadata,
         statusCode = reasonStatusCode.CREATED,
         statusMessage = reasonStatusMessage.CREATED,
+    }: {
+        message: string;
+        metadata: {};
+        statusCode?: number;
+        statusMessage?: string;
     }) {
         super({
             message,
@@ -49,7 +75,4 @@ class CREATED extends SuccessResponse {
     }
 }
 
-module.exports = {
-    OK,
-    CREATED,
-}
+export { OK, CREATED };

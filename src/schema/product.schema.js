@@ -22,7 +22,7 @@ const updateProductSchema = z.object({
     }),
 });
 
-module.exports = {
+export default {
     createProductSchema,
     updateProductSchema,
 }

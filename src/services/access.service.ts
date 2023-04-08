@@ -1,11 +1,11 @@
 "use strict";
-const bcrypt = require("bcrypt");
-const shopModel = require("../models/shop.model");
-const crypto = require("crypto");
-const KeyTokenService = require("./keyToken.service");
-const { createTokenPair } = require("../auth/authUtils");
-const { getInfo } = require("../utils");
-const { ConflictRequestError } = require("../core/error.response");
+import bcrypt from "bcrypt";
+import shopModel from "../models/shop.model";
+import crypto from "crypto";
+import KeyTokenService from "./keyToken.service";
+import { createTokenPair } from "../auth/authUtils";
+import { getInfo } from "../utils";
+import { ConflictRequestError } from "../core/error.response";
 
 const RoleShop = {
     SHOP: "SHOP",
@@ -15,11 +15,22 @@ const RoleShop = {
 };
 
 class AccessService {
-    static signUp = async ({ name, email, password }) => {
+    static signUp = async ({
+        name,
+        email,
+        password,
+    }: {
+        name: string;
+        email: string;
+        password: string;
+    }) => {
+        console.log(email)
         const holder = await shopModel.findOne({ email }).lean();
 
         if (holder) {
-            throw new ConflictRequestError("Handle shop already registered");
+            throw new ConflictRequestError({
+                message: "Handle shop already registered",
+            });
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -48,7 +59,7 @@ class AccessService {
             );
 
             const keyStored = await KeyTokenService.createKeyToken({
-                userId: newShop._id,
+                userId: newShop._id.toString(),
                 publicKey,
                 privateKey,
             });
@@ -61,7 +72,7 @@ class AccessService {
             }
 
             const tokens = await createTokenPair(
-                { userId: newShop._id, email },
+                { userId: newShop._id.toString(), email },
                 publicKey,
                 privateKey
             );
@@ -82,4 +93,4 @@ class AccessService {
     };
 }
 
-module.exports = AccessService;
+export default AccessService;
