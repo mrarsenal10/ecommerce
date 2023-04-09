@@ -1,6 +1,6 @@
-import { BadRequestError } from "../core/error.response";
-import Product from "../models/product.model";
-import { getInfo, getInfoArray } from "../utils";
+import { BadRequestError } from "../core/error.response"
+import Product from "../models/product.model"
+import { getInfo, getInfoArray } from "../utils"
 
 class ProductService {
     static create = async ({
@@ -11,25 +11,25 @@ class ProductService {
         isPublished: string;
     }) => {
         try {
-            const newProduct = await Product.create({ name, isPublished });
+            const newProduct = await Product.create({ name, isPublished })
 
             return getInfo({
                 fields: ["name", "isPublished"],
                 object: newProduct.dataValues,
-            });
+            })
         } catch (err: unknown) {
             if (err instanceof Error) {
-                throw new BadRequestError({ message: err.message });
+                throw new BadRequestError({ message: err.message })
             }
         }
-    };
+    }
 
     static update = async (id: string, { name }: { name: string }) => {
         try {
-            const foundProduct = await Product.findOne({ where: { id: id } });
+            const foundProduct = await Product.findOne({ where: { id: id } })
 
             if (!foundProduct) {
-                throw new BadRequestError({ message: "Product not found" });
+                throw new BadRequestError({ message: "Product not found" })
             }
 
             await Product.update(
@@ -43,29 +43,29 @@ class ProductService {
                     },
                     plain: true,
                 }
-            );
+            )
 
-            return { name };
+            return { name }
         } catch (err: unknown) {
             if (err instanceof Error) {
-                throw new BadRequestError({ message: err.message });
+                throw new BadRequestError({ message: err.message })
             }
         }
-    };
+    }
 
     static getAll = async () => {
         try {
-            const products = await Product.findAll();
+            const products = await Product.findAll()
             return getInfoArray({
                 fields: ["name", "isPublished"],
                 data: products,
-            });
+            })
         } catch (err: unknown) {
             if (err instanceof Error) {
-                throw new BadRequestError({ message: err.message });
+                throw new BadRequestError({ message: err.message })
             }
         }
-    };
+    }
 }
 
-export default ProductService;
+export default ProductService
