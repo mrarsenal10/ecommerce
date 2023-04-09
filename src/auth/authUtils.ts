@@ -3,9 +3,9 @@
 import JWT from "jsonwebtoken";
 
 type payload = {
-    userId: string,
-    email: string,
-}
+    userId: string;
+    email: string;
+};
 
 const createTokenPair = async (
     payload: payload,

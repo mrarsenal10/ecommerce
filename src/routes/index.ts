@@ -6,7 +6,6 @@ import access from "./access";
 const router = express.Router();
 import { apiKey, asyncHandler, permission } from "../auth/checkAuth";
 
-
 router.use(asyncHandler(apiKey));
 router.use(asyncHandler(permission("0000")));
 

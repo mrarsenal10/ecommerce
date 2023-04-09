@@ -25,4 +25,4 @@ const updateProductSchema = z.object({
 export default {
     createProductSchema,
     updateProductSchema,
-}
+};

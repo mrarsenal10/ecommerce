@@ -8,7 +8,7 @@ class KeyTokenService {
         publicKey,
         privateKey,
     }: {
-        userId: string
+        userId: number;
         publicKey: string;
         privateKey: string;
     }) => {
