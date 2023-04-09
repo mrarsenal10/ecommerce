@@ -14,6 +14,7 @@ const shopSchema = new mongoose.Schema(
             type: String,
             unique: true,
             trim: true,
+            require: true,
         },
         password: {
             type: String,

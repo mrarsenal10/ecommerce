@@ -1,4 +1,4 @@
-const { z } = require("zod");
+const { z } = require("zod")
 
 const createProductSchema = z.object({
     body: z.object({
@@ -7,11 +7,11 @@ const createProductSchema = z.object({
         }),
         isPublished: z.boolean().optional(),
     }),
-});
+})
 
 const params = z.object({
     id: z.string(),
-});
+})
 
 const updateProductSchema = z.object({
     params,
@@ -20,9 +20,9 @@ const updateProductSchema = z.object({
             required_error: "Name is required",
         }),
     }),
-});
+})
 
 export default {
     createProductSchema,
     updateProductSchema,
-};
+}

@@ -1,9 +1,9 @@
 type objKey = {
-    permissions: string[];
-};
+    permissions: string[]
+}
 
 declare namespace Express {
     interface Request {
-        objKey: objKey;
+        objKey: objKey
     }
 }

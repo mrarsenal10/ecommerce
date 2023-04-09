@@ -5,7 +5,7 @@ import crypto from "crypto"
 import KeyTokenService from "./keyToken.service"
 import { createTokenPair } from "../auth/authUtils"
 import { getInfo } from "../utils"
-import { ConflictRequestError } from "../core/error.response"
+import { BadRequestError, ConflictRequestError } from "../core/error.response"
 
 const RoleShop = {
     SHOP: "SHOP",
@@ -15,14 +15,62 @@ const RoleShop = {
 }
 
 class AccessService {
+    static login = async ({
+        email,
+        password,
+    }: {
+        email: string
+        password: string
+    }) => {
+        // checking email
+        const foundShop = await shopModel.findOne({ email }).lean().exec()
+
+        if (!foundShop) {
+            throw new BadRequestError({ message: "Shop not found" })
+        }
+
+        if (!(await bcrypt.compare(password, foundShop.password))) {
+            throw new BadRequestError({ message: "Password mismatch" })
+        }
+
+        const publicKey = crypto.randomBytes(64).toString("hex")
+        const privateKey = crypto.randomBytes(64).toString("hex")
+
+        // create token pair
+        const tokens =
+            (await createTokenPair(
+                {
+                    userId: foundShop._id.toString(),
+                    email,
+                },
+                publicKey,
+                privateKey
+            )) || {}
+
+        await KeyTokenService.createKeyToken({
+            userId: foundShop._id.toString(),
+            publicKey,
+            privateKey,
+            refreshToken: tokens.refreshToken,
+        })
+
+        return {
+            shop: getInfo({
+                fields: ["_id", "name", "email"],
+                object: foundShop,
+            }),
+            tokens,
+        }
+    }
+
     static signUp = async ({
         name,
         email,
         password,
     }: {
-        name: string;
-        email: string;
-        password: string;
+        name: string
+        email: string
+        password: string
     }) => {
         const holder = await shopModel.findOne({ email }).lean()
 
@@ -42,26 +90,15 @@ class AccessService {
         })
 
         if (newShop) {
-            const { privateKey, publicKey } = crypto.generateKeyPairSync(
-                "rsa",
-                {
-                    modulusLength: 4096,
-                    publicKeyEncoding: {
-                        type: "pkcs1",
-                        format: "pem",
-                    },
-                    privateKeyEncoding: {
-                        type: "pkcs1",
-                        format: "pem",
-                    },
-                }
-            )
+            const privateKey = crypto.randomBytes(64).toString("hex")
+            const publicKey = crypto.randomBytes(64).toString("hex")
 
-            const keyStored = await KeyTokenService.createKeyToken({
-                userId: newShop._id.toString(),
-                publicKey,
-                privateKey,
-            })
+            const keyStored =
+                (await KeyTokenService.createKeyToken({
+                    userId: newShop._id.toString(),
+                    publicKey,
+                    privateKey,
+                })) || {}
 
             if (!keyStored) {
                 return {

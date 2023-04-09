@@ -7,8 +7,8 @@ class ProductService {
         name,
         isPublished,
     }: {
-        name: string;
-        isPublished: string;
+        name: string
+        isPublished: string
     }) => {
         try {
             const newProduct = await Product.create({ name, isPublished })
