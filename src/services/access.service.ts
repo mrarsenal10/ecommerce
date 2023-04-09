@@ -6,6 +6,7 @@ import KeyTokenService from "./keyToken.service"
 import { createTokenPair } from "../auth/authUtils"
 import { getInfo } from "../utils"
 import { BadRequestError, ConflictRequestError } from "../core/error.response"
+import keytokenModel from "../models/keytoken.model"
 
 const RoleShop = {
     SHOP: "SHOP",
@@ -15,6 +16,10 @@ const RoleShop = {
 }
 
 class AccessService {
+    static logout = async ({ _id }: {_id: string}) => {
+        return await keytokenModel.deleteOne({ _id }) || {}
+    }
+
     static login = async ({
         email,
         password,

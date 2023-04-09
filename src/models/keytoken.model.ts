@@ -5,7 +5,16 @@ import { model, Schema } from "mongoose"
 const DOCUMENT_NAME = "Key"
 const COLLECTION_NAME = "Keys"
 
-const keyTokenSchema = new Schema(
+interface IKeyToken {
+    user: Schema.Types.ObjectId;
+    publicKey: Schema.Types.String
+    privateKey: Schema.Types.String
+    refreshTokensUsed: Schema.Types.Array
+    refreshToken: Schema.Types.String
+}
+  
+
+const keyTokenSchema = new Schema<IKeyToken>(
     {
         user: {
             type: Schema.Types.ObjectId,
@@ -13,20 +22,20 @@ const keyTokenSchema = new Schema(
             ref: "Shop",
         },
         publicKey: {
-            type: String,
+            type: Schema.Types.String,
             required: true,
         },
         privateKey: {
-            type: String,
+            type: Schema.Types.String,
             required: true,
         },
         refreshTokensUsed: {
-            type: Array,
+            type: Schema.Types.Array,
             default: [],
         },
         refreshToken: {
-            type: String,
-            required: true,
+            type: Schema.Types.String,
+            require: true
         }
     },
     {
@@ -35,4 +44,4 @@ const keyTokenSchema = new Schema(
     }
 )
 
-export default model(DOCUMENT_NAME, keyTokenSchema)
+export default model<IKeyToken>(DOCUMENT_NAME, keyTokenSchema)
