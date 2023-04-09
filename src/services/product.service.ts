@@ -56,7 +56,6 @@ class ProductService {
     static getAll = async () => {
         try {
             const products = await Product.findAll();
-            console.log(products);
             return getInfoArray({
                 fields: ["name", "isPublished"],
                 data: products,

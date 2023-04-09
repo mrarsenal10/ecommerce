@@ -1,7 +1,7 @@
 "use strict";
 
 const { CREATED, OK } = require("../../core/success.response");
-const ProductService = require("../../services/mysql/product.service");
+const ProductService = require("../../services/product.service");
 
 class ProductController {
     create = async (req, res,) => {
@@ -20,7 +20,7 @@ class ProductController {
     };
 
     getAll = async () => {
-        new OK({ 
+        new OK({
             message: "Products",
             metadata: await ProductService.getAll(),
         }).send(res);

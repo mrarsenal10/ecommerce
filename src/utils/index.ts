@@ -16,7 +16,7 @@ const getInfoArray = ({
     fields = [],
     objects = [],
 }: {
-    fields: [];
+    fields: string[];
     objects: [];
 }) => {
     return objects.map((object) => _.pick(object, fields));
