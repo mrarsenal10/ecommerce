@@ -4,12 +4,14 @@ const statusCode = {
     FORBIDDEN: 403,
     CONFLICT: 409,
     BAD_REQUEST: 400,
+    NOT_FOUND: 404,
 }
 
 const statusMessage = {
     FORBIDDEN: "Forbidden",
     CONFLICT: "Conflict error",
     BAD_REQUEST: "Bad request",
+    NOT_FOUND: "Not found",
 }
 
 class ErrorResponse implements Error {
@@ -66,9 +68,22 @@ class BadRequestError extends ErrorResponse {
     }
 }
 
+class NotFoundError extends ErrorResponse {
+    constructor({
+        message = statusMessage.NOT_FOUND,
+        code = statusCode.NOT_FOUND,
+    }: {
+        message: string
+        code?: number
+    }) {
+        super({ message, code })
+    }
+}
+
 export {
     ConflictRequestError,
     ForbiddenRequestError,
     BadRequestError,
     ErrorResponse,
+    NotFoundError
 }
