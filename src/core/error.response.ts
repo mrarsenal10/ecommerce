@@ -12,24 +12,26 @@ const statusMessage = {
     BAD_REQUEST: "Bad request",
 };
 
-class ErrorResponse extends Error {
+class ErrorResponse implements Error {
+    name: string;
+    message: string;
     status: number;
-    errors: [] | null;
+    errors?: [] | null;
 
     constructor({
         message,
         code,
-        errors = null,
+        errors,
     }: {
         message: string;
         code: number;
         errors?: [] | null;
     }) {
-        super(message);
+        this.name = "Error response";
+        this.message = message;
         this.status = code;
         this.errors = errors;
-
-        Object.setPrototypeOf(this, ErrorResponse.prototype);
+        // Object.setPrototypeOf(this, ErrorResponse.prototype);
     }
 }
 
@@ -37,16 +39,19 @@ class ConflictRequestError extends ErrorResponse {
     constructor({
         message = statusMessage.CONFLICT,
         code = statusCode.CONFLICT,
-    }) {
+    }: { message?: string; code?: number } = {}) {
         super({ message, code });
     }
 }
 
-class ForbiddenERequestrror extends ErrorResponse {
-    constructor(
+class ForbiddenRequestError extends ErrorResponse {
+    constructor({
         message = statusMessage.FORBIDDEN,
-        code = statusCode.FORBIDDEN
-    ) {
+        code = statusCode.FORBIDDEN,
+    }: {
+        message?: string;
+        code?: number;
+    } = {}) {
         super({ message, code });
     }
 }
@@ -63,7 +68,7 @@ class BadRequestError extends ErrorResponse {
 
 export {
     ConflictRequestError,
-    ForbiddenERequestrror,
+    ForbiddenRequestError,
     BadRequestError,
     ErrorResponse,
 };

@@ -37,15 +37,23 @@ app.use((_req: Request, _res: Response, _next: NextFunction) => {
     _next(error);
 });
 
-app.use((error: ErrorResponse, _req: Request, _res: Response) => {
-    const statusCode = error.status || 500;
-    // const errors = error.errors || [];
+app.use(
+    (
+        error: ErrorResponse,
+        _req: Request,
+        _res: Response,
+        _next: NextFunction
+    ) => {
+        const statusCode = error.status || 500;
+        const errors = error.errors || [];
 
-    return _res.status(statusCode).json({
-        status: "error",
-        code: statusCode,
-        message: error.message || "Internal error",
-    });
-});
+        return _res.status(statusCode).json({
+            status: "error",
+            code: statusCode,
+            message: error.message || "Internal error",
+            ...(errors.length > 0 && { errors }),
+        });
+    }
+);
 
 export default app;

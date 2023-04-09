@@ -6,11 +6,11 @@ import { CREATED } from "../core/success.response";
 import AccessService from "../services/access.service";
 
 class AccessController {
-    signUp = async (_req: Request, _res: Response) => {
+    signUp = async (req: Request, res: Response) => {
         new CREATED({
             message: "Registered",
-            metadata: await AccessService.signUp(_req.body),
-        }).send(_res);
+            metadata: await AccessService.signUp(req.body),
+        }).send(res);
     };
 }
 

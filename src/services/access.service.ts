@@ -24,7 +24,6 @@ class AccessService {
         email: string;
         password: string;
     }) => {
-        console.log(email)
         const holder = await shopModel.findOne({ email }).lean();
 
         if (holder) {

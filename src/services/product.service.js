@@ -1,6 +1,6 @@
-const { BadRequestError } = require("../../core/error.response");
-const Product = require("../../models/mysql/product.model");
-const { getInfo, getInfoArray } = require("../../utils");
+const { BadRequestError } = require("../core/error.response");
+const Product = require("../models/mysql/product.model");
+const { getInfo, getInfoArray } = require("../utils");
 
 class ProductService {
     static create = async ({ name, isPublished }) => {
