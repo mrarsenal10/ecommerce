@@ -1,25 +1,25 @@
-"use strict";
+"use strict"
 
-type DbConfig =  {
+type DbConfig = {
     host: string | undefined;
     port: string | undefined;
     name: string | undefined;
     username?: string;
     password?: string;
-}
+};
 
 type AppConfig = {
     port: string | undefined;
-}
+};
 
 type ConfigItem = {
     app: AppConfig;
     db: DbConfig;
-}
+};
 
 type Config = {
     [key: string]: ConfigItem;
-}
+};
 
 const dev: ConfigItem = {
     app: {
@@ -32,7 +32,7 @@ const dev: ConfigItem = {
         username: process.env.DEV_DB_USERNAME,
         password: process.env.DEV_DB_PASSWORD,
     },
-};
+}
 
 const pro: ConfigItem = {
     app: {
@@ -43,10 +43,10 @@ const pro: ConfigItem = {
         port: process.env.PRO_DB_PORT,
         name: process.env.PRO_DB_NAME,
     },
-};
+}
 
-const config: Config = { dev, pro };
+const config: Config = { dev, pro }
 
-const env: string = process.env.NODE_ENV || "dev";
+const env: string = process.env.NODE_ENV || "dev"
 
-export default config[env];
+export default config[env]

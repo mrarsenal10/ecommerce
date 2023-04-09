@@ -1,11 +1,11 @@
-"use strict";
+"use strict"
 
-import JWT from "jsonwebtoken";
+import JWT from "jsonwebtoken"
 
 type payload = {
-    userId: string,
-    email: string,
-}
+    userId: string;
+    email: string;
+};
 
 const createTokenPair = async (
     payload: payload,
@@ -16,19 +16,19 @@ const createTokenPair = async (
         const accessToken = await JWT.sign(payload, privateKey, {
             algorithm: "RS256",
             expiresIn: "2 days",
-        });
+        })
 
         const refreshToken = await JWT.sign(payload, privateKey, {
             algorithm: "RS256",
             expiresIn: "7 days",
-        });
+        })
 
-        return { accessToken, refreshToken };
+        return { accessToken, refreshToken }
     } catch (error) {
-        console.log("create token", error);
+        console.log("create token", error)
     }
-};
+}
 
 // const verify = async () => {};
 
-export { createTokenPair };
+export { createTokenPair }

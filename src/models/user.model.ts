@@ -1,13 +1,13 @@
-'use strict'
+"use strict"
 
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true,
         unique: true,
-        index: true
+        index: true,
     },
     email: {
         type: String,
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         require: true,
-    }
+    },
 })
 
-export default mongoose.model('User', userSchema)
+export default mongoose.model("User", userSchema)

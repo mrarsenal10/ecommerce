@@ -1,21 +1,21 @@
-"use strict";
+"use strict"
 
-import { Response } from "express";
+import { Response } from "express"
 
 const reasonStatusCode = {
     OK: 200,
     CREATED: 201,
-};
+}
 
 const reasonStatusMessage = {
     OK: "Success",
     CREATED: "Created",
-};
+}
 
 class SuccessResponse {
-    message: string;
-    status: number;
-    metadata: {};
+    message: string
+    status: number
+    metadata: {}
 
     constructor({
         message,
@@ -28,13 +28,13 @@ class SuccessResponse {
         statusMessage: string;
         metadata: {};
     }) {
-        this.message = !message ? statusMessage : message;
-        this.status = statusCode;
-        this.metadata = metadata;
+        this.message = !message ? statusMessage : message
+        this.status = statusCode
+        this.metadata = metadata
     }
 
     send(res: Response) {
-        return res.status(this.status).json(this);
+        return res.status(this.status).json(this)
     }
 }
 
@@ -50,7 +50,7 @@ class OK extends SuccessResponse {
         statusCode: number;
         statusMessage: string;
     }) {
-        super({ message, metadata, statusCode, statusMessage });
+        super({ message, metadata, statusCode, statusMessage })
     }
 }
 
@@ -71,8 +71,8 @@ class CREATED extends SuccessResponse {
             metadata,
             statusCode,
             statusMessage,
-        });
+        })
     }
 }
 
-export { OK, CREATED };
+export { OK, CREATED }

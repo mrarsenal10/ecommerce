@@ -1,6 +1,6 @@
-"use strict";
+"use strict"
 
-import keytokenModel from "../models/keytoken.model";
+import keytokenModel from "../models/keytoken.model"
 
 class KeyTokenService {
     static createKeyToken = async ({
@@ -8,7 +8,7 @@ class KeyTokenService {
         publicKey,
         privateKey,
     }: {
-        userId: string
+        userId: number;
         publicKey: string;
         privateKey: string;
     }) => {
@@ -17,13 +17,13 @@ class KeyTokenService {
                 user: userId,
                 publicKey,
                 privateKey,
-            });
+            })
 
-            return tokens ? tokens.publicKey : null;
+            return tokens ? tokens.publicKey : null
         } catch (error) {
-            return error;
+            return error
         }
-    };
+    }
 }
 
-export default KeyTokenService;
+export default KeyTokenService

@@ -1,9 +1,9 @@
-"use strict";
+"use strict"
 
-import { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose"
 
-const DOCUMENT_NAME = "Apikey";
-const COLLECTION_NAME = "ApiKeys";
+const DOCUMENT_NAME = "Apikey"
+const COLLECTION_NAME = "ApiKeys"
 
 const apikeyShema = new Schema(
     {
@@ -26,6 +26,6 @@ const apikeyShema = new Schema(
         timestamps: true,
         collection: COLLECTION_NAME,
     }
-);
+)
 
-export default model(DOCUMENT_NAME, apikeyShema);
+export default model(DOCUMENT_NAME, apikeyShema)

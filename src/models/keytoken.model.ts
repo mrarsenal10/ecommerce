@@ -1,9 +1,9 @@
-"use strict";
+"use strict"
 
-import { model, Schema } from "mongoose";
+import { model, Schema } from "mongoose"
 
-const DOCUMENT_NAME = "Key";
-const COLLECTION_NAME = "Keys";
+const DOCUMENT_NAME = "Key"
+const COLLECTION_NAME = "Keys"
 
 const keyTokenSchema = new Schema(
     {
@@ -29,6 +29,6 @@ const keyTokenSchema = new Schema(
         collection: COLLECTION_NAME,
         timestamps: true,
     }
-);
+)
 
-export default model(DOCUMENT_NAME, keyTokenSchema);
+export default model(DOCUMENT_NAME, keyTokenSchema)

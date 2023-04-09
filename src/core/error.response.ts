@@ -1,22 +1,22 @@
-"use strict";
+"use strict"
 
 const statusCode = {
     FORBIDDEN: 403,
     CONFLICT: 409,
     BAD_REQUEST: 400,
-};
+}
 
 const statusMessage = {
     FORBIDDEN: "Forbidden",
     CONFLICT: "Conflict error",
     BAD_REQUEST: "Bad request",
-};
+}
 
 class ErrorResponse implements Error {
-    name: string;
-    message: string;
-    status: number;
-    errors?: [] | null;
+    name: string
+    message: string
+    status: number
+    errors?: [] | null
 
     constructor({
         message,
@@ -27,10 +27,10 @@ class ErrorResponse implements Error {
         code: number;
         errors?: [] | null;
     }) {
-        this.name = "Error response";
-        this.message = message;
-        this.status = code;
-        this.errors = errors;
+        this.name = "Error response"
+        this.message = message
+        this.status = code
+        this.errors = errors
         // Object.setPrototypeOf(this, ErrorResponse.prototype);
     }
 }
@@ -40,7 +40,7 @@ class ConflictRequestError extends ErrorResponse {
         message = statusMessage.CONFLICT,
         code = statusCode.CONFLICT,
     }: { message?: string; code?: number } = {}) {
-        super({ message, code });
+        super({ message, code })
     }
 }
 
@@ -52,7 +52,7 @@ class ForbiddenRequestError extends ErrorResponse {
         message?: string;
         code?: number;
     } = {}) {
-        super({ message, code });
+        super({ message, code })
     }
 }
 
@@ -62,7 +62,7 @@ class BadRequestError extends ErrorResponse {
         code = statusCode.BAD_REQUEST,
         errors = null,
     }) {
-        super({ message, code, errors });
+        super({ message, code, errors })
     }
 }
 
@@ -71,4 +71,4 @@ export {
     ForbiddenRequestError,
     BadRequestError,
     ErrorResponse,
-};
+}

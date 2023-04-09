@@ -1,6 +1,6 @@
-"use strict";
+"use strict"
 
-import _ from "lodash";
+import _ from "lodash"
 
 const getInfo = ({
     fields = [],
@@ -9,8 +9,8 @@ const getInfo = ({
     fields: string[];
     object: {};
 }) => {
-    return _.pick(object, fields);
-};
+    return _.pick(object, fields)
+}
 
 const getInfoArray = ({
     fields = [],
@@ -19,7 +19,7 @@ const getInfoArray = ({
     fields: string[];
     objects: [];
 }) => {
-    return objects.map((object) => _.pick(object, fields));
-};
+    return objects.map((object) => _.pick(object, fields))
+}
 
-export { getInfo, getInfoArray };
+export { getInfo, getInfoArray }

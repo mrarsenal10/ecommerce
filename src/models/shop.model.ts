@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-const DOCUMENT_NAME = "Shop";
-const COLLECTION_NAME = "Shops";
+const DOCUMENT_NAME = "Shop"
+const COLLECTION_NAME = "Shops"
 
 const shopSchema = new mongoose.Schema(
     {
@@ -37,6 +37,6 @@ const shopSchema = new mongoose.Schema(
         timestamps: true,
         collection: COLLECTION_NAME,
     }
-);
+)
 
-export default mongoose.model(DOCUMENT_NAME, shopSchema);
+export default mongoose.model(DOCUMENT_NAME, shopSchema)
