@@ -23,9 +23,9 @@ class ErrorResponse implements Error {
         code,
         errors,
     }: {
-        message: string;
-        code: number;
-        errors?: [] | null;
+        message: string
+        code: number
+        errors?: [] | null
     }) {
         this.name = "Error response"
         this.message = message
@@ -49,8 +49,8 @@ class ForbiddenRequestError extends ErrorResponse {
         message = statusMessage.FORBIDDEN,
         code = statusCode.FORBIDDEN,
     }: {
-        message?: string;
-        code?: number;
+        message?: string
+        code?: number
     } = {}) {
         super({ message, code })
     }

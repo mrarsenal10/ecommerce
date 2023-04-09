@@ -7,17 +7,31 @@ class KeyTokenService {
         userId,
         publicKey,
         privateKey,
+        refreshToken = null
     }: {
-        userId: number;
-        publicKey: string;
-        privateKey: string;
+        userId: string
+        publicKey: string
+        privateKey: string
+        refreshToken?: string | null
     }) => {
         try {
-            const tokens = await keytokenModel.create({
-                user: userId,
-                publicKey,
+            const filter = { user: userId }
+            const update = {
                 privateKey,
-            })
+                publicKey,
+                refreshTokensUsed: [],
+                refreshToken,
+            }
+            const options = {
+                upsert: true,
+                new: true,
+            }
+
+            const tokens = await keytokenModel.findOneAndUpdate(
+                filter,
+                update,
+                options,
+            )
 
             return tokens ? tokens.publicKey : null
         } catch (error) {

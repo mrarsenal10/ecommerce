@@ -1,25 +1,25 @@
 "use strict"
 
 type DbConfig = {
-    host: string | undefined;
-    port: string | undefined;
-    name: string | undefined;
-    username?: string;
-    password?: string;
-};
+    host: string | undefined
+    port: string | undefined
+    name: string | undefined
+    username?: string
+    password?: string
+}
 
 type AppConfig = {
-    port: string | undefined;
-};
+    port: string | undefined
+}
 
 type ConfigItem = {
-    app: AppConfig;
-    db: DbConfig;
-};
+    app: AppConfig
+    db: DbConfig
+}
 
 type Config = {
-    [key: string]: ConfigItem;
-};
+    [key: string]: ConfigItem
+}
 
 const dev: ConfigItem = {
     app: {

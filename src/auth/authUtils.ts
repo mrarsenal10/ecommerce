@@ -3,32 +3,30 @@
 import JWT from "jsonwebtoken"
 
 type payload = {
-    userId: string;
-    email: string;
-};
+    userId: string
+    email: string
+}
 
-const createTokenPair = async (
+const createTokenPair: (
     payload: payload,
     publicKey: string,
     privateKey: string
+) => { refreshToken: string; accessToken: string } = (
+    payload,
+    publicKey,
+    privateKey
 ) => {
-    try {
-        const accessToken = await JWT.sign(payload, privateKey, {
-            algorithm: "RS256",
-            expiresIn: "2 days",
-        })
+    const accessToken = JWT.sign(payload, publicKey, {
+        // algorithm: "RS256",
+        expiresIn: "2 days",
+    })
 
-        const refreshToken = await JWT.sign(payload, privateKey, {
-            algorithm: "RS256",
-            expiresIn: "7 days",
-        })
+    const refreshToken = JWT.sign(payload, privateKey, {
+        // algorithm: "RS256",
+        expiresIn: "7 days",
+    })
 
-        return { accessToken, refreshToken }
-    } catch (error) {
-        console.log("create token", error)
-    }
+    return { accessToken, refreshToken }
 }
-
-// const verify = async () => {};
 
 export { createTokenPair }

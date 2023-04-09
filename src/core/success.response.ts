@@ -23,10 +23,10 @@ class SuccessResponse {
         statusMessage = reasonStatusMessage.OK,
         metadata = {},
     }: {
-        message: string;
-        statusCode: number;
-        statusMessage: string;
-        metadata: {};
+        message: string
+        statusCode: number
+        statusMessage: string
+        metadata: {}
     }) {
         this.message = !message ? statusMessage : message
         this.status = statusCode
@@ -42,13 +42,13 @@ class OK extends SuccessResponse {
     constructor({
         message,
         metadata,
-        statusCode,
-        statusMessage,
+        statusCode = reasonStatusCode.OK,
+        statusMessage = reasonStatusMessage.OK,
     }: {
-        message: string;
-        metadata: {};
-        statusCode: number;
-        statusMessage: string;
+        message: string
+        metadata: {}
+        statusCode?: number
+        statusMessage?: string
     }) {
         super({ message, metadata, statusCode, statusMessage })
     }
@@ -61,10 +61,10 @@ class CREATED extends SuccessResponse {
         statusCode = reasonStatusCode.CREATED,
         statusMessage = reasonStatusMessage.CREATED,
     }: {
-        message: string;
-        metadata: {};
-        statusCode?: number;
-        statusMessage?: string;
+        message: string
+        metadata: {}
+        statusCode?: number
+        statusMessage?: string
     }) {
         super({
             message,

@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const dbinstance = require("../../dbs/init.mysql");
+const { DataTypes } = require("sequelize")
+const dbinstance = require("../../dbs/init.mysql")
 
 const Product = dbinstance.sequelize.define("products", {
     id: {
@@ -26,6 +26,6 @@ const Product = dbinstance.sequelize.define("products", {
         defaultValue: DataTypes.NOW,
         allowNull: false,
     },
-});
+})
 
-export default Product;
+export default Product
